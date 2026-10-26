@@ -1,0 +1,11 @@
+// soma, subtracao, multiplicacao, divisao, exponenciacao e log
+X = 1010;            // 10
+Y = 11;              // 3
+Show ( X + Y );      // 13 = 1101
+Show ( X - Y );      // 7  = 111
+Show ( X * Y );      // 30 = 11110
+Show ( X / Y );      // 3  = 11
+Show ( Y ^ 10 );     // 9  = 1001
+Show ( 10 ^ 11 ^ 10 ); // 2^(3^2) = 512 = 1000000000
+Show ( log ( X ) );  // floor(log2 10) = 3 = 11
+Show ( (X + Y) * 10 ); // 26 = 11010

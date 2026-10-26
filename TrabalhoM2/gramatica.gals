@@ -1,0 +1,78 @@
+#Options
+GenerateScanner = true
+GenerateParser = true
+Language = Java
+ScannerName = Lexico
+ParserName = Sintatico
+SemanticName = Semantico
+ScannerCaseSensitive = true
+ScannerTable = Full
+Input = String
+Parser = LL
+#RegularDefinitions
+L : [a-zA-Z_]
+D : [0-9]
+#Tokens
+// identificadores e numeros binarios
+ID : {L} ({L} | {D})*
+BIN : [01]+
+
+// palavras reservadas
+Show = ID : "Show"
+log = ID : "log"
+
+// simbolos
+"="
+";"
+"("
+")"
+"+"
+"-"
+"*"
+"/"
+"^"
+
+// ignorados: espacos e comentarios de linha
+ : [\ \t\n\r]*
+:! "//" [^\n\r]*
+#NonTerminals
+<programa>
+<lista_cmd>
+<cmd>
+<expr>
+<expr_r>
+<termo>
+<termo_r>
+<pot>
+<pot_r>
+<fator>
+#Grammar
+<programa>  ::= <lista_cmd> ;
+
+<lista_cmd> ::= <cmd> <lista_cmd>
+              | î ;
+
+<cmd>       ::= ID #1 "=" <expr> ";" #2
+              | Show "(" <expr> ")" ";" #3 ;
+
+<expr>      ::= <termo> <expr_r> ;
+
+<expr_r>    ::= "+" <termo> #4 <expr_r>
+              | "-" <termo> #5 <expr_r>
+              | î ;
+
+<termo>     ::= <pot> <termo_r> ;
+
+<termo_r>   ::= "*" <pot> #6 <termo_r>
+              | "/" <pot> #7 <termo_r>
+              | î ;
+
+<pot>       ::= <fator> <pot_r> ;
+
+<pot_r>     ::= "^" <pot> #8
+              | î ;
+
+<fator>     ::= BIN #9
+              | ID #10
+              | "(" <expr> ")"
+              | log "(" <expr> ")" #11 ;
